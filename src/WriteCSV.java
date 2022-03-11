@@ -2,6 +2,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class WriteCSV {
 
@@ -13,56 +15,21 @@ public class WriteCSV {
         writer.close();
     }
 
-
-    //метод для конвертации двумерного массива с долгами в текст
-    public String textOutput(double[][] matrix, ArrayList<String> headersHorizontal, ArrayList<String> headersVertical) {
-        int sizeHor = matrix[0].length;
-        int sizeVert = matrix.length;
-        //новый массив может быть короче старого по вертикали из-за повторений в списке имен
-        int sizeDiff = headersVertical.size() - headersHorizontal.size();
-        double[][] newMatrix = new double[sizeVert - sizeDiff][sizeHor];
-        //создаем первую строку финального текста
+    //метод для конвертации мапы с долгами в текст
+    public String textOutput(LinkedHashMap<Integer, ArrayList<Double>> finalTable, ArrayList<String> headersHorizontal) {
         String text = "," + toStringList(headersHorizontal) + "\n";
-        for (int i = 0; i < sizeVert - sizeDiff; i++) {
-            for (int j = 0; j < sizeHor; j++) {
-                //если должен сам себе, то ноль
-                if (i == j) {
-                    newMatrix[i][j] = 0;
-                } else {
-                    //взаимозачет между должником и покупателем и замена местами долгов покупателя и дожника
-                    if (matrix[i][j] > matrix[j][i]) {
-                        newMatrix[i][j] = 0;
-                    } else {
-                        newMatrix[i][j] = matrix[j][i] - matrix[i][j];
-                    }
-                }
-            }
+        for (int i : finalTable.keySet()) {
+            ArrayList<Double> list = finalTable.get(i);
             //собираем строку из заголовка и массива долгов
-            String line = headersHorizontal.get(i) + "," + toStringArray(newMatrix[i]);
+            String line = headersHorizontal.get(i) + "," + toStringList(list);
             //собираем финальный текст из строк
             text = text + line + "\n";
         }
         return text;
     }
 
-    //метод для превщаения массива в текст без [ ]
-    public static String toStringArray(double[] a) {
-        if (a == null)
-            return "null";
-        int iMax = a.length - 1;
-        StringBuilder b = new StringBuilder();
-        for (int i = 0; ; i++) {
-            if (a[i] != 0) {
-                b.append(a[i]);
-            }
-            if (i == iMax)
-                return b.toString();
-            b.append(", ");
-        }
-    }
-
     //метод для превщаения списка в текст без [ ]
-    public static String toStringList(ArrayList<String> a) {
+    public static <T> String toStringList(ArrayList<T> a) {
         if (a == null)
             return "null";
         int iMax = a.size() - 1;
@@ -74,7 +41,5 @@ public class WriteCSV {
             b.append(", ");
         }
     }
-
-
 }
 

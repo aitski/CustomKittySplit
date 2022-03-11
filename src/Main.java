@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Main {
 
@@ -6,10 +9,12 @@ public class Main {
 
         ReadCSV read = new ReadCSV();
         WriteCSV write = new WriteCSV();
-        String input = read.readFileContentsOrNull("/Users/irinakvan/IdeaProjects/CustomKittySplit/src/CSVs/input.csv");
+        CalculateDebts calc = new CalculateDebts();
+        String input = read.readFileContentsOrNull("C:\\Users\\leoni\\IdeaProjects\\CustomKittySplit\\src\\CSVs\\input.csv");
         double[][] matrix = read.textToArray(input);
-        String output = write.textOutput(matrix, read.headersHorizontal, read.headersVertical);
-        write.writeString(output, "/Users/irinakvan/IdeaProjects/CustomKittySplit/src/CSVs/output.csv");
+        LinkedHashMap<Integer, ArrayList<Double>> finalTable = calc.finalTable(matrix);
+        String output = write.textOutput(finalTable, read.headersHorizontal);
+        write.writeString(output, "C:\\Users\\leoni\\IdeaProjects\\CustomKittySplit\\src\\CSVs\\output.csv");
     }
 
 
