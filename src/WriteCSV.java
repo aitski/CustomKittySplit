@@ -20,10 +20,8 @@ public class WriteCSV {
         String text = "," + toStringList(headersHorizontal) + "\n";
         for (int i : finalTable.keySet()) {
             ArrayList<Double> list = finalTable.get(i);
-            //собираем строку из заголовка и массива долгов
-            String line = headersHorizontal.get(i) + "," + toStringList(list);
-            //собираем финальный текст из строк
-            text = text + line + "\n";
+            String line = headersHorizontal.get(i) + "," + toStringList(list);    //собираем строку из заголовка и массива долгов
+            text = text + line + "\n"; //собираем финальный текст из строк
         }
         return text;
     }
