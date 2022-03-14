@@ -12,7 +12,7 @@ public class Main {
         WriteCSV write = new WriteCSV();
         CalculateSums sums = new CalculateSums();
         CalculateDebts calc = new CalculateDebts();
-        String input = read.readFileContentsOrNull("C:\\Users\\leoni\\IdeaProjects\\CustomKittySplit\\src\\CSVs\\input.csv");
+        String input = read.readFileContentsOrNull("C:\\Users\\leoni\\IdeaProjects\\CustomKittySplit\\src\\CSVs\\input2.csv");
         sums.textToMap(input);
         LinkedHashMap<Integer, ArrayList<Double>> finalTable = calc.finalTable(sums.giversSums, sums.receiversSums);
         String output = write.textOutput(finalTable, sums.headersHorizontal);

@@ -11,7 +11,12 @@ public class CalculateSums {
     //мето для конвертации текста в мапу и вычисления сумм должников и получателей
     public void textToMap(String fileContents) {
         TreeMap<Integer, ArrayList<Double>> debtsMap = new TreeMap<>();
-        String[] linesArray = fileContents.split("\r\n"); //разбивка текста на массив строк
+        String[] linesArray;
+        if (fileContents.contains("\r")){
+            linesArray = fileContents.split("\r\n"); //разбивка текста на массив строк
+        } else {
+            linesArray = fileContents.split("\n"); //разбивка текста на массив строк
+        }
         String[] workingHeader = linesArray[0].split(","); //разбивка 1 строки в массив для заголовка
         for (int i = 2; i < workingHeader.length; i++) { //создание списка горизонтального заголовка
             headersHorizontal.add(workingHeader[i]);
