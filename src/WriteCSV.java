@@ -8,10 +8,11 @@ import java.util.LinkedHashMap;
 public class WriteCSV {
 
     //метод для записи текста в файл
-    public void writeString(String input, String path)
+    public void writeString(LinkedHashMap<Integer, ArrayList<Double>> finalTable, ArrayList<String> headersHorizontal, String path)
             throws IOException {
+        String output = textOutput(finalTable, headersHorizontal);
         BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-        writer.write(input);
+        writer.write(output);
         writer.close();
     }
 
